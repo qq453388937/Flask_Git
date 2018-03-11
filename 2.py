@@ -88,6 +88,9 @@ def demo9():
     return cookie if cookie else 'cookie啥也没有'  # 返回一个字符串 类似self.write()
 
 
+
+
+
 if __name__ == '__main__':
     print app.url_map
     app.run(debug=True)

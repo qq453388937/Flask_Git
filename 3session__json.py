@@ -6,7 +6,7 @@ from flask import Flask, make_response, current_app, \
 from settings import Config
 # 导入转换器
 from werkzeug.routing import BaseConverter
-# 扩展包flask_sessionflask_session
+# 扩展包flask_sessionflask_session session 扩展包
 from flask_session import Session
 # json
 import json
@@ -41,6 +41,7 @@ def get_session():
 @app.route('/json')
 def json():
     my_dict = {"name": "aaa", "age": 30}
+    # return jsonify(errno=666,errmsg='用户名或密码错误')
     return jsonify(my_dict)
 
 
@@ -104,6 +105,7 @@ def demo10(response):
 def templ_test():
     context = {'user': 'python24', 'age': 16}
     return render_template('index.html', context=context)
+    # return render_template('index.html', **context)
 
 
 if __name__ == '__main__':

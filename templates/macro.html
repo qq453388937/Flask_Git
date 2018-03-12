@@ -1,0 +1,15 @@
+{% macro mythod(a=a,b=b) %}
+    <form action="" method="post">
+        {# 本质作用就是混淆，避免跨站脚本攻击   #}
+{#        {{ form.csrf_token }}#}
+        {{ b }}
+{#        {{ form.user.label }}#}
+        {{ a }}
+{#        {{ form.user }}<br>#}
+{#        {{ form.pswd.label }}#}
+{#        {{ form.pswd }}<br>#}
+{#        {{ form.pswd2.label }}#}
+{#        {{ form.pswd2 }}<br>#}
+{#        {{ form.submit }}<br>#}
+    </form>
+{% endmacro %}

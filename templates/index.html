@@ -5,14 +5,26 @@
     <title>Title</title>
 </head>
 <body>
-          <hr>
+<hr>
 {#    {{ user }}#}
-    {{ context }}
-    {% for x in context.values() %}
-        <h1>{{ x }}</h1>
-    {% endfor %}
+{{ context }}
+{% for x in context.values() %}
+    <h1>{{ x }}</h1>
+{% endfor %}
+{# 不管里面有html js css 直接输出为原始字符串不起作用#}
+{{ '<h1>aBc</h1>' }}
+{{ '<h1>aBc</h1>'|upper }}
+{{ '<h1>aBc</h1>'|lower }}
+{# 支持链式编程 #}
+{{ '<h1>aBc</h1>'|capitalize|upper }}
+{{ '<h1>aBc</h1>'|reverse }}
+
+{{ [123,3,1,4,5] | first }}
+{{ [123,3,1,4,5] | sum }}
+{{ [123,3,1,4,5] | sort }}
 
 
-
+{{ [1,2,3,4,5,6] | db2 }}
+{{ [1,2,3,4,5,6] | db3 }}
 </body>
 </html>

@@ -23,7 +23,7 @@ from flask_wtf import FlaskForm, Form
 
 app = Flask(__name__)
 app.config.from_object(Config)
-Session(app)
+Session(app) # 注册到app
 
 # 实例化管理器对象
 manager = Manager(app)  # 运行sessio扩展包
@@ -77,7 +77,8 @@ def red():  # 和flask函数不要重名
 
 @app.route('/red2')
 def red2():
-    return redirect(url_for('red'))  # 函数名
+    return redirect(url_for('red'),)  # 函数名
+    # return redirect(url_for('red',param=xxx))  # 有参数的以命名参数的方式传递进去
 
 
 @app.after_request
@@ -139,7 +140,7 @@ def login():
     pswd = request.form.get('txtpwd')
     return render_template('login.html', context=context)
 
-
+# 1.自定义表单类
 class Form(FlaskForm):
     user = StringField(label=u'用户名', validators=[DataRequired()])
     pswd = PasswordField(label=u'密码', validators=[DataRequired(), EqualTo('pswd2', '密码不一致哦！')])
@@ -149,12 +150,12 @@ class Form(FlaskForm):
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    # 实例化表单类对象
+    # 2.实例化表单类对象
     form = Form()
     print form.validate_on_submit()  # 表单验证+csrf
     if form.validate_on_submit():
         # 获取表单数据
-        user = form.user.data
+        user = form.user.data # wtf 表单获取form.user.data form.表单对象的字段.data
         ps = form.pswd.data
         ps2 = form.pswd2.data
         print("*" * 50)
@@ -165,7 +166,9 @@ def register():
             print(u'验证失败！！')
             flash(u'验证失败！！')
     flash(u'验证成功！！')
-    return render_template('register.html', form=form)
+    flash(u'验证成功2！！')
+    flash(u'验证成功23！！')
+    return render_template('register.html', form=form) # 3.传表单对象给模板视图 WTF表单
 
 
 @app.route('/include', methods=['GET', 'POST'])
@@ -176,7 +179,7 @@ def include():
 if __name__ == '__main__':
     print app.url_map
     # app.run(debug=True)
-    manager.run()
+    manager.run() # 用管理器跑
 
 """ python xxx.py runserver --help 
 optional arguments:

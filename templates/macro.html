@@ -1,4 +1,5 @@
-{% macro mythod(a=a,b=b) %}
+{% macro func(a=a,b=b) %}
+    <!-- 宏的本质是实现模板页面的动态代码的服用 -->
     <form action="" method="post">
         {# 本质作用就是混淆，避免跨站脚本攻击   #}
 {#        {{ form.csrf_token }}#}
@@ -11,5 +12,6 @@
 {#        {{ form.pswd2.label }}#}
 {#        {{ form.pswd2 }}<br>#}
 {#        {{ form.submit }}<br>#}
+    <button>哈哈打我打我都</button>
     </form>
 {% endmacro %}

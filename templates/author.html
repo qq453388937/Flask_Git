@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>图书作者</h1>
+<form action="" method="post">
+    {{ form.csrf_token }}
+
+    <p>{{ form.auth.label }}{{ form.auth }}</p>
+    <p>{{ form.book.label }}{{ form.book }}</p>
+    <p>{{ form.submit }}</p>
+</form>
+<ul>
+    {% for auth in all_auth %}
+        <li>{{ auth }}</li><a href="/delete_auth{{ auth.id }}">删除</a>
+    {% endfor %}
+</ul>
+<ul>
+    {% for book in all_book %}
+        <li>{{ book }}</li><a href="/delete_book{{ book.id }}">删除</a>
+    {% endfor %}
+</ul>
+</body>
+</html>

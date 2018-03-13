@@ -6,13 +6,13 @@
 </head>
 <body>
 123
-{% macro mythod(a,b) %}
+{% macro mythod(a,b,c=c) %}
     <form action="" method="post">
-{# 本质作用就是混淆，避免跨站脚本攻击#}
+        {# 本质作用就是混淆，避免跨站脚本攻击#}
         {{ form.csrf_token }}
-        {{ b }}
+        <h1>{{ b }}</h1>
         {{ form.user.label }}
-        {{ a }}
+        <h1>{{ a+c }}</h1>
         {{ form.user }}<br>
         {{ form.pswd.label }}
         {{ form.pswd }}<br>
@@ -23,7 +23,10 @@
 
     </form>
 {% endmacro %}
-{{ mythod() }}
+{#{{ mythod(1,2,c=3) }}#}
+{% import 'macro.html' as ff %}
+{{ ff.func(a=1,b=2) }}
+
 
 {% for message in get_flashed_messages() %}
     {{ message }}
@@ -31,7 +34,7 @@
 
 
 {% import 'macro.html' as ff %}
-{{ ff.mythod(1,2) }}
+{#{{ ff.mythod(1,2) }}#}
 {#{% ff.mythod(1,2) %}#}
 
 321

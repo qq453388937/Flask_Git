@@ -15,8 +15,14 @@ from flask_script import Manager
 # 导入数据库迁移所用的类，命令类
 from flask_migrate import Migrate, MigrateCommand
 
+
+
 app = Flask(__name__)
 app.config.from_object(Config)
+# 导入蓝图对象用于注册
+from _10_blueprint_splitagain import api
+# 注册蓝图
+app.register_blueprint(api)
 db = SQLAlchemy(app)
 # 迁移使用管理器对象 Manager(app)
 # 迁移第一步
@@ -95,29 +101,6 @@ except:
     abort()
 """
 
-
-@app.route('/delete_auth<int:id>')
-def delete_auth(id):
-    # author = Author.query.get(id)
-    author = Author.query.filter_by(id=id).first()
-    db.session.delete(author)
-    db.session.commit()
-    return redirect(url_for('author'))
-
-
-@app.route('/delete_book<int:id>')
-def delete_book(id):
-    book = Author.query.get(id=id)
-    try:
-        db.session.delete(book)
-        db.session.commit()
-    except Exception as e:
-        db.session.rollback()
-        flash('出错了')
-        abort(500)
-    return redirect(url_for('author'))
-
-
 if __name__ == '__main__':
     # db.drop_all()
     # db.create_all()
@@ -137,6 +120,7 @@ if __name__ == '__main__':
     # app.run()
 
     # 迁移第四步骤
+    print app.url_map
     manager.run()
 
 """
